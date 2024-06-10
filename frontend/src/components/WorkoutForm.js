@@ -22,7 +22,8 @@ const WorkoutForm = () => {
     const jsonFormOfRes = await response.json();
     if (!response.ok) {
       setError(jsonFormOfRes.error);
-    } else {
+      console.log("error discovered");
+    } else if (response.ok) {
       setError(null);
       console.log("Workout added successfully \n:", jsonFormOfRes);
       setTitle("");
@@ -35,29 +36,23 @@ const WorkoutForm = () => {
       <form className="create" onSubmit={handleSubmit}>
         <h3>Add a New Workout</h3>
         <label>Enter Title/name of workout:</label>
-        <br />
         <input
           type="text"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
         />
-        <br />
         <label>Load(kg):</label>
-        <br />
         <input
           type="number"
           onChange={(e) => setLoad(e.target.value)}
           value={load}
         />
-        <br />
         <label>Number of reps (repitions):</label>
-        <br />
         <input
           type="number"
           onChange={(e) => setReps(e.target.value)}
           value={reps}
         />
-        <br />
         {/* <label>Is a supervisor needed? :</label>
         <input
           type="text"
@@ -65,8 +60,8 @@ const WorkoutForm = () => {
           value={isSupervisorRecommended}
         /> */}
         <button>Add Workout</button>
+        {error && <div className="error"> {error}</div>}
       </form>
-      {error && <div className="error"> {error}</div>}
     </>
   );
 };
