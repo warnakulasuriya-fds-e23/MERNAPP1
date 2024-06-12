@@ -13,7 +13,7 @@ const Home = () => {
       }
     };
     fetchWorkouts();
-  }, []); //leaving the second argument of use effect as an empty array ensures that this function is fired only once upon initialization of home page
+  }, [dispatch]); //leaving the second argument of use effect as an empty array ensures that this function is fired only once upon initialization of home page
 
   return (
     <div className="home">
