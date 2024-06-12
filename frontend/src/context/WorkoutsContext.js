@@ -12,6 +12,12 @@ const WorkoutsReducer = (state, action) => {
       return {
         workoutsArray: [action.payload, ...state.workoutsArray], //shouldnt it be [...action.payload, ...state.workouts]??? NO! because here just a single workout will be passed in as the payload but in the previous case an array of many workouts would have been passed in.
       };
+    case "DELETE_WORKOUT":
+      return {
+        workoutsArray: state.workoutsArray.filter(
+          (workout) => workout._id !== action.payload._id
+        ),
+      };
     default:
       return state;
   }
