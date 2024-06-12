@@ -24,7 +24,9 @@ const WorkoutDetails = ({ workout }) => {
         <strong>created At:</strong> {workout.createdAt}
         <br />
       </p>
-      <span onClick={DeleteOnClick}>delete</span>
+      <span class="material-symbols-outlined" onClick={DeleteOnClick}>
+        delete
+      </span>
     </div>
   );
 };
