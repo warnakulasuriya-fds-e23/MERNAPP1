@@ -6,6 +6,7 @@ const WorkoutForm = () => {
   const [load, setLoad] = useState("");
   const [reps, setReps] = useState("");
   const [error, setError] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
   //   const [isSupervisorRecommended, setIsSupervisorRecommended] = useState("");
 
   const handleSubmit = async (e) => {
@@ -24,15 +25,16 @@ const WorkoutForm = () => {
     const jsonFormOfRes = await response.json();
     if (!response.ok) {
       setError(jsonFormOfRes.error);
-      console.log("error discovered");
+      setEmptyFields(jsonFormOfRes.emptyFields);
     } else if (response.ok) {
       dispatch({ type: "ADD_WORKOUT", payload: jsonFormOfRes });
       setError(null);
-      console.log("Workout added successfully \n:", jsonFormOfRes);
+      setEmptyFields([]);
       setTitle("");
       setLoad("");
       setReps("");
     }
+    console.log(emptyFields);
   };
   return (
     <>
@@ -43,18 +45,21 @@ const WorkoutForm = () => {
           type="text"
           onChange={(e) => setTitle(e.target.value)}
           value={title}
+          className={emptyFields.includes("title") ? "error" : ""}
         />
         <label>Load(kg):</label>
         <input
           type="number"
           onChange={(e) => setLoad(e.target.value)}
           value={load}
+          className={emptyFields.includes("load") ? "error" : ""}
         />
         <label>Number of reps (repitions):</label>
         <input
           type="number"
           onChange={(e) => setReps(e.target.value)}
           value={reps}
+          className={emptyFields.includes("reps") ? "error" : ""}
         />
         {/* <label>Is a supervisor needed? :</label>
         <input
