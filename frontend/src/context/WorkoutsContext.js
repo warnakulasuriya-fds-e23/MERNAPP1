@@ -4,13 +4,13 @@ export const WorkoutsContext = createContext();
 
 const WorkoutsReducer = (state, action) => {
   switch (action.type) {
-    case "SET_WORKOUTS":
+    case "SET_ALL_WORKOUTS":
       return {
-        workouts: action.payload,
+        workoutsArray: action.payload,
       };
-    case "CREATE_WORKOUTS":
+    case "ADD_WORKOUT":
       return {
-        workouts: [action.payload, ...state.workouts], //shouldnt it be [...action.payload, ...state.workouts]??? NO! because here just a single workout will be passed in as the payload but in the previous case an array of many workouts would have been passed in.
+        workoutsArray: [action.payload, ...state.workoutsArray], //shouldnt it be [...action.payload, ...state.workouts]??? NO! because here just a single workout will be passed in as the payload but in the previous case an array of many workouts would have been passed in.
       };
     default:
       return state;
@@ -19,7 +19,7 @@ const WorkoutsReducer = (state, action) => {
 
 export const WorkoutsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(WorkoutsReducer, {
-    workouts: null,
+    workoutsArray: null,
   });
   return (
     <WorkoutsContext.Provider value={{ ...state, dispatch }}>
